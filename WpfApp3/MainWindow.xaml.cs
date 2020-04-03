@@ -28,7 +28,7 @@ namespace WpfApp3
         {
             InitializeComponent();
 
-            //this.ShowActivated = true;
+            //this.ShowActivated = false;
             //this.Topmost = true;
 
             // When bringing up an existing window. Make sure to perform a
