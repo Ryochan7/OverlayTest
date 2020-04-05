@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -25,6 +26,9 @@ namespace WpfApp3
     {
         private NonFormTimer testTimer = new NonFormTimer();
         private MainWinViewModel mainWinVM = new MainWinViewModel();
+        private Stopwatch elapsedWatch = new Stopwatch();
+
+        private const long WAIT_TIME = 5000;
 
         public MainWindow()
         {
@@ -46,6 +50,7 @@ namespace WpfApp3
             //this.Focus();
             //this.Activate();
 
+            elapsedWatch.Start();
             testTimer.Start();
         }
 
@@ -53,9 +58,20 @@ namespace WpfApp3
         {
             testTimer.Stop();
 
-            mainWinVM.RefreshTime();
-
-            testTimer.Start();
+            if (elapsedWatch.ElapsedMilliseconds <= WAIT_TIME)
+            {
+                mainWinVM.RefreshTime();
+                testTimer.Start();
+            }
+            else
+            {
+                elapsedWatch.Stop();
+                // Need to invoke in UI thread
+                Dispatcher.BeginInvoke((Action)(() =>
+                {
+                    Close();
+                }));
+            }
         }
 
 
