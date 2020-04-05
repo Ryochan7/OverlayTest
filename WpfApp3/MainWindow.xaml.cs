@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp3.ViewModels;
 using NonFormTimer = System.Timers.Timer;
 
 namespace WpfApp3
@@ -23,10 +24,16 @@ namespace WpfApp3
     public partial class MainWindow : Window
     {
         private NonFormTimer testTimer = new NonFormTimer();
+        private MainWinViewModel mainWinVM = new MainWinViewModel();
 
         public MainWindow()
         {
             InitializeComponent();
+
+            DataContext = mainWinVM;
+
+            testTimer.Elapsed += TestTimer_Elapsed;
+            testTimer.Interval = 500;
 
             //this.ShowActivated = false;
             //this.Topmost = true;
@@ -35,6 +42,20 @@ namespace WpfApp3
             // Hide() followed by a Show(). Make sure window is not set to
             // activate when shown. Topmost is already set from XAML file
             this.Show();
+
+            //this.Focus();
+            //this.Activate();
+
+            testTimer.Start();
+        }
+
+        private void TestTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            testTimer.Stop();
+
+            mainWinVM.RefreshTime();
+
+            testTimer.Start();
         }
 
 
@@ -72,6 +93,25 @@ namespace WpfApp3
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             // Invoke app shutdown when button is clicked
+            Application.Current.Shutdown(0);
+        }
+
+        ~MainWindow()
+        {
+            testTimer.Stop();
+            testTimer.Dispose();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Application.Current.Shutdown(0);
+            }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
             Application.Current.Shutdown(0);
         }
     }
