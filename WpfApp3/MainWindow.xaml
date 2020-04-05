@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp3"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Opacity="0.5" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Background="{x:Null}" Foreground="{x:Null}" IsTabStop="False" Visibility="Visible" Cursor="SizeWE" ShowActivated="False" WindowStyle="None" ShowInTaskbar="False" AllowsTransparency="True" Topmost="True" KeyDown="Window_KeyDown" Closed="Window_Closed">
+        Title="MainWindow" Height="450" Width="800" Opacity="0.5" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Background="{x:Null}" Foreground="{x:Null}" IsTabStop="False" Visibility="Visible" Cursor="None" ShowActivated="False" WindowStyle="None" ShowInTaskbar="False" AllowsTransparency="True" Topmost="True" KeyDown="Window_KeyDown" Closed="Window_Closed">
     <DockPanel>
         <StackPanel DockPanel.Dock="Top">
             <Image Source="Media/Images/holyterry.png" Width="400" HorizontalAlignment="Center" />

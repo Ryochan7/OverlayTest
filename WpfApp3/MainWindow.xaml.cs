@@ -46,9 +46,10 @@ namespace WpfApp3
             // Hide() followed by a Show(). Make sure window is not set to
             // activate when shown. Topmost is already set from XAML file
             this.Show();
-
-            //this.Focus();
             //this.Activate();
+            //this.Focusable = true;
+            //this.Focus();
+            //this.Topmost = true;
 
             elapsedWatch.Start();
             testTimer.Start();
