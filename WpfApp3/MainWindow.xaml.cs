@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -130,6 +131,20 @@ namespace WpfApp3
         private void Window_Closed(object sender, EventArgs e)
         {
             Application.Current.Shutdown(0);
+        }
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+
+            // Set the window style to noactivate.
+            var helper = new WindowInteropHelper(this);
+            // WS_EX_NOACTIVATE allows mouse clicks within the window boundaries without activating the window
+            // https://stackoverflow.com/questions/12591896/disable-wpf-window-focus
+            // WS_EX_TRANSPARENT allows mouse clicks to fall through to the window below
+            // https://stackoverflow.com/questions/58824122/how-can-i-make-an-overlay-window-that-allows-mouse-clicks-to-pass-through-to-w
+            Util.SetWindowLong(helper.Handle, Util.GWL_EXSTYLE,
+                Util.GetWindowLong(helper.Handle, Util.GWL_EXSTYLE) | Util.WS_EX_NOACTIVATE | Util.WS_EX_TRANSPARENT);
         }
     }
 }
